@@ -1,0 +1,11 @@
+module.exports = {
+    name: "commandNameLong", // the call name for the command !commandNameLong
+    aliases: ["cnl"], // the short aliase for the command !cnl === !commandNameLong
+    cooldown: 60, // delete for none
+    description: "An example command", // this text shows up on !help command as description
+    execute(message) {
+
+        // here comes your code...
+
+    }
+};
