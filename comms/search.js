@@ -220,8 +220,8 @@ module.exports = {
                                 searchEmbed.setTimestamp();
                                 searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                                 message.channel.send(searchEmbed)
-                                    .then(msg => { msg.delete({timeout: 15000})})
-                                    .then(message.delete({timeout: 5000}))
+                                    .then(msg => { msg.delete({timeout: 29000})})
+                                    .then(message.delete({timeout: 29000}))
                                     .catch(console.error);
 
                                 let serverEmbed = new MessageEmbed()
@@ -255,8 +255,8 @@ module.exports = {
                                         serverEmbed.setTimestamp();
                                         serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                                         message.channel.send(serverEmbed)
-                                        .then(msg => { msg.delete({timeout: 15000})})
-                                        .then(message.delete({timeout: 5000}))
+                                        .then(msg => { msg.delete({timeout: 29000})})
+                                        .then(message.delete({timeout: 29000}))
                                         .catch(console.error);
                                         return;
                                         // console.log(state);
