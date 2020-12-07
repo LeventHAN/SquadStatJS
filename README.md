@@ -80,6 +80,7 @@ footerImg="https://cdn.discordapp.com/icons/676475499538808842/a_b40c3b2dc58d06d
 author="©️ Anatolia Squad Community"
 ```
  * `prefix` - The symbol/letter that your bot will use, default is `!`.
+  * `searchTag` - Changes the tag name that the bots responds for searching stats of the players
  * `game` - For now it is useless. Just don't touch it.
  * `serverIP` - The public IP of your Squad Game Server.
  * `DISCORD_BOT_TOKEN` - Obvius your bot token. You can find out how to get it here: [How to make a bot and get token](https://www.writebots.com/discord-bot-token/).
