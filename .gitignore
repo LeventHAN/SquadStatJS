@@ -1,9 +1,11 @@
 # Mac OS files
 .DS_Store
 
+
 # Folders
 .vscode/
 .idea/
+.github/
 node_modules/
 
 # the config file
@@ -11,4 +13,3 @@ node_modules/
 
 #other
 squadstatjs.iml
-package-lock.json

@@ -58,11 +58,21 @@ steamtoken="YOUR_STEAM_TOKEN"
 channelRestricted=true
 statChannel="IF_ABOFE_TRUE_FILL_IN_CHANNELID"
 
+# Embed settings false = do not delete / true = delete | timeout is in milliseconds
+deletePlayerStatsEmbed=true
+deletePlayerStatsEmbedTimeout="29000"
+showActiveServerEmbed=true
+deleteActiveServerEmbed=true
+deleteActiveServerEmbedTimeout="29000"
+
+
 # SquadJS Database Settings
 host="127.0.0.1"
 user="squadjs"
 password="Your_Password"
 database="squadjs"
+# Write your serverID's all separated by ,(comma) like in the example below and the last one should not have any comma.
+serverID="1,2,3"
 
 # Visual Settings
 footerImg="https://cdn.discordapp.com/icons/676475499538808842/a_b40c3b2dc58d06d3d1a5d34510205cd4.gif"
@@ -74,12 +84,18 @@ author="©️ Anatolia Squad Community"
  * `DISCORD_BOT_TOKEN` - Obvius your bot token.
  * `steamtoken` - Your Steam Token, it will be used for the activity of the player (which server is he rightnow etc...).
  * `battleMetricsToken` - It is not usefull for now. Don't touch it.
- * `channelRestricted` - You can choose between `true` and `false`. `FALSE:` Players can use the commands everywehere in the servr. `TRUE:` Will check the channelID (see `statChannel`) and respond only for that room. It will promt an error if you use it elsewhere.
+ * `channelRestricted` - You can choose between `true` and `false`. `false`: Players can use the commands everywehere in the servr. `true`: Will check the channelID (see `statChannel`) and respond only for that room. It will promt an error if you use it elsewhere.
  * `statChannel` - The room/channelID that players can use the bot (only works if `channelRestricted=true`).
+ * `deletePlayerStatsEmbed` - Toggles the delete function of the bot on/off for the Player Stats Embed (`true`: on | `false`: off)
+ * `deletePlayerStatsEmbedTimeout` - The delete time in milliseconds for the Player Stats Embed! Default: `29000` = 29seconds
+ * `showActiveServerEmbed` - Toggles the steam embed status message for players. (`true`: embed message is showing active server player is playing | `false`: does not show the active playing server embed) If this is `false` than `deleteActiveServerEmbed` and `deleteActiveServerEmbedTimeout` will be irrelevant.
+ * `deleteActiveServerEmbed` - Toggles the delete function of the bot on/off for the active playing @ server embed (`true`: on | `false`: off)
+ * `deleteActiveServerEmbedTimeout` - The delete time in milliseconds for the Active Server Embed! Default: `29000` = 29seconds
  * `host` - The database IP that SquadJS is using.
  * `user` - The username for that DB.
  * `password` - The password for that DB.
  * `database` - The database name for SquadJS.
+ * `serverID` - The server ID that you would want to filter (most of the time it should be just "1" if you have multiple servers than you can write "1,2,etc..").
  * `footerImg` - The little logo/image on the footer of each embed.
  * `author` - The text next to `footerImg`
  
