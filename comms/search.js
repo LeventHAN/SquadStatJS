@@ -16,7 +16,7 @@ module.exports = {
             if (!args.length) {
                 let wrongSyntaxEmbed = new MessageEmbed()
                     .setTitle(`Ooops! Wrong Syntax`)
-                    .setDescription(`**Usage of the command: \`${SETTINGS.prefix}search <Your_Steam64ID>\`.**`)
+                    .setDescription(`**Usage of the command: \`${SETTINGS.prefix}${SETTINGS.searchTag} <Your_Steam64ID>\`.**`)
                     .setColor("#ff0300")
                     .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio')
                     .setThumbnail("https://i.imgur.com/fqymYyZ.png");
@@ -39,7 +39,7 @@ module.exports = {
 
                 let wrongSyntaxEmbed = new MessageEmbed()
                     .setTitle(`Ooops! Wrong Syntax`)
-                    .setDescription(`**Usage of the command: \`${SETTINGS.prefix}search <Your_Steam64ID>\`.**`)
+                    .setDescription(`**Usage of the command: \`${SETTINGS.prefix}${SETTINGS.searchTag} <Your_Steam64ID>\`.**`)
                     .setColor("#ff0300")
                     .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio')
                     .setThumbnail("https://i.imgur.com/fqymYyZ.png");
@@ -114,7 +114,7 @@ module.exports = {
 
                             let searchEmbed = new MessageEmbed()
                                 .setTitle(`Fetched from our server.`)
-                                .setDescription(`Command usage: \`${SETTINGS.prefix}search <SteamID64>\``)
+                                .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchTag} <SteamID64>\``)
                                 .setColor("#f82d2a")
                                 .setThumbnail(summary["avatar"]["large"])
                                 .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
