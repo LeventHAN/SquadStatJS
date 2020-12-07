@@ -45,6 +45,7 @@ The following section of the configuration contains information about your Squad
 ```json
 # Main Settings
 prefix="!"
+searchTag="search"
 game="squad"
 
 # Connection Settings

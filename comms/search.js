@@ -8,7 +8,7 @@ const flag = require('country-code-emoji');
 const Gamedig = require('gamedig');
 
 module.exports = {
-    name: "search",
+    name: SETTINGS.searchTag,
     cooldown: 20,
     aliases: ["s"],
     description: "Search a player up",
