@@ -10,4 +10,4 @@ jobs:
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         issue-message: 'Hey thanks for opening an issue ticket. I will try to answer you ASAP but be sure to check out the readme.md file first :)'
-        pr-message: 'Thanks foro your contribution! I will check your PR asap as soon as Im online :)'
+        pr-message: 'Thanks for your contribution! I will check your PR asap as soon as Im online :)'
