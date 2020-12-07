@@ -4,7 +4,7 @@
 
 #### SquadStatJS
 [![GitHub contributors](https://img.shields.io/github/contributors/11TStudio/SquadStatJS.svg?style=flat-square)](https://github.com/11TStudio/SquadStatJS/graphs/contributors)
-[![GitHub release](https://img.shields.io/github/license/11TStudio/SquadStatJS.svg?style=flat-square)](https://github.com/Napster653/SquadMaps/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/license/11TStudio/SquadStatJS.svg?style=flat-square)](https://github.com/11TStudio/SquadStatJS/blob/master/LICENSE)
 
 <br>
 
