@@ -60,9 +60,9 @@ module.exports = {
             );
 
             creditsEmbed.addField(
-                `**Hosting**`,
-                `\`ZMBilisim.com.tr\``,
-                false
+                `**Sponsored by**`,
+                `\`Anatolia Squad Community\``,
+                true
             );
 
             // creditsEmbed.setImage()
