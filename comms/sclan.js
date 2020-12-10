@@ -33,7 +33,7 @@ module.exports = {
 
             const regexClanTag = /^(\||\d|\w|\(|\[|\{)(\d|\w|\W){1,8}$/;
             const clanTag = args[0];
-            const topAmount = args[1].toUpperCase();
+            const topAmount = args[1] ? args[1].toUpperCase() : "TOP3";
             let limit = "";
             let topURL = "";
             let emoji = [];
