@@ -65,7 +65,8 @@ deletePlayerStatsEmbedTimeout="29000"
 showActiveServerEmbed=true
 deleteActiveServerEmbed=true
 deleteActiveServerEmbedTimeout="29000"
-
+# not ready yet \ deleteClanStatsEmbed=false
+# not ready yet \ deleteClanStatsEmbedTimeout="29000"
 
 # SquadJS Database Settings
 host="127.0.0.1"
@@ -80,7 +81,8 @@ footerImg="https://cdn.discordapp.com/icons/676475499538808842/a_b40c3b2dc58d06d
 author="©️ Anatolia Squad Community"
 ```
  * `prefix` - The symbol/letter that your bot will use, default is `!`.
-  * `searchTag` - Changes the tag name that the bots responds for searching stats of the players
+ * `searchTag` - Changes the tag name that the bots responds for searching stats of the players
+ * `searchClanTag` - Changes the tag name that the bots responds for searching for specific clan stats of the players. `Usage example` -`!sclan [8mm] TOP10`
  * `game` - For now it is useless. Just don't touch it.
  * `serverIP` - The public IP of your Squad Game Server.
  * `DISCORD_BOT_TOKEN` - Obvius your bot token. You can find out how to get it here: [How to make a bot and get token](https://www.writebots.com/discord-bot-token/).
@@ -90,6 +92,8 @@ author="©️ Anatolia Squad Community"
  * `statChannel` - The room/channelID that players can use the bot (only works if `channelRestricted=true`).
  * `deletePlayerStatsEmbed` - Toggles the delete function of the bot on/off for the Player Stats Embed (`true`: on | `false`: off)
  * `deletePlayerStatsEmbedTimeout` - The delete time in milliseconds for the Player Stats Embed! Default: `29000` = 29seconds
+ * `deleteClanStatsEmbed` - Toggles the delete function of the bot on/off for the Clan Stats Embed (`true`: on | `false`: off)
+ * `deleteClanStatsEmbedTimeout` - The delete time in milliseconds for the Clan Stats Embed! Default: `29000` = 29seconds
  * `showActiveServerEmbed` - Toggles the steam embed status message for players. (`true`: embed message is showing active server player is playing | `false`: does not show the active playing server embed) If this is `false` than `deleteActiveServerEmbed` and `deleteActiveServerEmbedTimeout` will be irrelevant.
  * `deleteActiveServerEmbed` - Toggles the delete function of the bot on/off for the active playing @ server embed (`true`: on | `false`: off)
  * `deleteActiveServerEmbedTimeout` - The delete time in milliseconds for the Active Server Embed! Default: `29000` = 29seconds
@@ -115,12 +119,26 @@ The following is a list of commands built into SquadJS, you can click their titl
        </div>
 </details>
 <details>
+      <summary>sclan</summary>
+      <h2>Search for specific clan's players statistics</h2>
+      <p>The <code>sclan</code> command usage is as following: 
+      <pre><code>
+      !sclan [TAG-OF-CLAN] TOP3-TOP5-TOP10
+      </code></pre>
+      <h3>Example Image</h3>
+       <div align="center">
+       <img src="img/examples/example_4.jpg" alt="Example !sclan" width="250"/><br>
+       <img src="img/examples/example_5.jpg" alt="Example !sclan" width="250"/><br>
+       <img src="img/examples/example_6.jpg" alt="Example !sclan" width="250"/><br>
+       </div>
+</details>
+<details>
       <summary>credits</summary>
       <h2>Credits</h2>
       <p>The <code>credits</code> command will show the credits for the bot.</p>
       <h3>Example Image</h3>
        <div align="center">
-       <img src="img/examples/example_2.jpg" alt="Example !search" width="250"/>
+       <img src="img/examples/example_2.jpg" alt="Example !credits" width="250"/>
        </div>
 </details>
 <details>
@@ -129,7 +147,7 @@ The following is a list of commands built into SquadJS, you can click their titl
       <p>The <code>help</code> command will automatically grab all available commands and show them.</p>
       <h3>Example Image</h3>
        <div align="center">
-       <img src="img/examples/example_3.jpg" alt="Example !search" width="250"/>
+       <img src="img/examples/example_3.jpg" alt="Example !help" width="250"/>
        </div>
 </details>
 

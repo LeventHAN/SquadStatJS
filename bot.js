@@ -5,16 +5,14 @@ const { join } = require("path");
 const { readdirSync } = require("fs");
 
 
-/**
- * Client Events
- */
+// The client events
 const client = new Client();
 client.login(SETTINGS.DISCORD_BOT_TOKEN);
 client.commands = new Collection();
 client.prefix = SETTINGS.prefix;
 const cooldowns = new Collection();
 const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-
+// starting the engine :)
 client.on("ready", () => {
     console.log(`${client.user.username} ready!`);
     client.user.setActivity(`${SETTINGS.prefix}help`, { type: "LISTENING" });
@@ -22,6 +20,7 @@ client.on("ready", () => {
 client.on("warn", (info) => console.log(info));
 client.on("error", console.error);
 
+// on message
 client.on("message", async (message) => {
     if (message.author.bot) return;
     if (!message.guild) return;
@@ -85,7 +84,6 @@ client.on("message", async (message) => {
             return;
         }
     }
-    //${timeLeft.toFixed(1)}
 
     cdtimestamps.set(message.author.id, now);
     setTimeout(() => cdtimestamps.delete(message.author.id), cooldownAmount);
@@ -99,9 +97,7 @@ client.on("message", async (message) => {
 
 });
 
-/*
-* Importing all the commands
- */
+// Importing all the commands
 const commandList = readdirSync(join(__dirname, "comms")).filter((file) => file.endsWith(".js"));
 for (const file of commandList) {
     const command = require(join(__dirname, "comms", `${file}`));
