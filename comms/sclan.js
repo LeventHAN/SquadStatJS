@@ -102,7 +102,6 @@ module.exports = {
                     //return;
                     if(!result || result.length === 0) {
                         searchEmbed.setTitle(`We coulnd't find ${clanTag}`)
-                                    .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} <CLAN-TAG>\``)
                                     .setDescription(`Please re-check your clan tag.`)
                                     .addField(`**Example usage: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} "[8mm]" TOP10\`\`\``, false)
                                     .addField(`**Example usage #2: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} 'BADGER' TOP5\`\`\``, false)
@@ -127,7 +126,7 @@ module.exports = {
                         for (let i = 0; i<limit; i++){
                             if(i===0) {
                                 searchEmbed.setTitle(`TOP ${limit} of ${clanTag}`)
-                                .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} <CLAN-TAG> <TOP-10-5-3>\``)
+                                .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} "<CLAN-TAG>" <TOP-10-5-3>\``)
                                 .setColor("#f82d2a")
                                 .setThumbnail(topURL)
                                 .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
