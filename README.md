@@ -123,7 +123,9 @@ The following is a list of commands built into SquadJS, you can click their titl
       <h2>Search for specific clan's players statistics</h2>
       <p>The <code>sclan</code> command usage is as following: 
       <pre><code>
-      !sclan [TAG-OF-CLAN] TOP3-TOP5-TOP10
+      !sclan '[TAG-OF-CLAN]' TOP3-TOP5-TOP10
+      OR
+      !sclan "[TAG-OF-CLAN]" TOP3-TOP5-TOP10
       </code></pre>
       <h3>Example Image</h3>
        <div align="center">

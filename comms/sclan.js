@@ -11,11 +11,11 @@ module.exports = {
         function wrongSyntax() {
             let wrongSyntaxEmbed = new MessageEmbed()
                     .setTitle(`Ooops! Wrong Syntax`)
-                    .setDescription(`**Usage of the command: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} <TAG-OF-THE-CLAN>  <TOP3 OR TOP5 OR TOP10>\`.**`)
-                    .addField(`**Example usage: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} [8mm] TOP10\`\`\``, false)
-                    .addField(`**Example usage #2: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} BADGER TOP5\`\`\``, false)
-                    .addField(`**Example usage #3: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} (77th) TOP3\`\`\``, false)
-                    .addField(`**Example usage #4: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} [8mm]\`\`\``, false)
+                    .setDescription(`**Usage of the command was wrong please check the examples below!**`)
+                    .addField(`**Example usage: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} "[8mm]" TOP10\`\`\``, false)
+                    .addField(`**Example usage #2: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} 'BADGER' TOP5\`\`\``, false)
+                    .addField(`**Example usage #3: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} "77th" TOP3\`\`\``, false)
+                    .addField(`**Example usage #4: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} '8mm'\`\`\``, false)
                     .setColor("#ff0300")
                     .setThumbnail("https://i.imgur.com/fqymYyZ.png");
                 wrongSyntaxEmbed.setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
@@ -31,9 +31,13 @@ module.exports = {
                 return;
             }
 
-            const regexClanTag = /^(\||\d|\w|\(|\[|\{)(\d|\w|\W){1,8}$/;
-            const clanTag = args[0];
-            const topAmount = args[1] ? args[1].toUpperCase() : "TOP3";
+            if(!message.content.match(/(["'])((?:\\\1|(?:(?!\1)).)*)(\1)/)) {
+                wrongSyntax();
+                return;
+            }
+            const clanTag = message.content.match(/(["'])((?:\\\1|(?:(?!\1)).)*)(\1)/)[2];
+            const amount = args[args.length-1];
+            const topAmount = amount ? amount.toUpperCase() : "TOP3";
             let limit = "";
             let topURL = "";
             let emoji = [];
@@ -57,12 +61,6 @@ module.exports = {
                     limit = "3";
                     emoji = [":first_place:", ":second_place:", ":third_place:"];
                     topURL= "https://i.imgur.com/HIlMSi2.jpg";
-            }
-            const clanTagValid = regexClanTag.test(args[0]);
-
-            if (!clanTagValid) {
-                wrongSyntax();
-                return;
             }
 
             let fetchingData = new MessageEmbed()
@@ -103,25 +101,32 @@ module.exports = {
                     limit = result.length;
                     //return;
                     if(!result || result.length === 0) {
-                        searchEmbed.setTitle(`We coulnd't find ${args[0]}`)
+                        searchEmbed.setTitle(`We coulnd't find ${clanTag}`)
                                     .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} <CLAN-TAG>\``)
                                     .setDescription(`Please re-check your clan tag.`)
-                                    .addField(`**Example usage: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} [8mm] TOP10\`\`\``, false)
-                                    .addField(`**Example usage #2: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} BADGER TOP5\`\`\``, false)
-                                    .addField(`**Example usage #3: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} (77th) TOP3\`\`\``, false)
-                                    .addField(`**Example usage #4: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} [8mm]\`\`\``, false)
+                                    .addField(`**Example usage: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} "[8mm]" TOP10\`\`\``, false)
+                                    .addField(`**Example usage #2: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} 'BADGER' TOP5\`\`\``, false)
+                                    .addField(`**Example usage #3: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} "77th" TOP3\`\`\``, false)
+                                    .addField(`**Example usage #4: **`, `\`\`\`${SETTINGS.prefix}${SETTINGS.searchClanTag} '8mm'\`\`\``, false)
                                     .setColor("#f82d2a")
                                     .setThumbnail('https://i.imgur.com/fqymYyZ.png')
                                     .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
                                     searchEmbed.setTimestamp();
                                     searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
-                                    message.channel.send(searchEmbed).then(msg => { msg.delete({timeout: 15000})});
+                                    message.channel.send(searchEmbed)
+                                    .then(msg => { msg.delete({timeout: 15000})})
+                                    .then(message.delete({timeout: 10000}));
                                     fetchingSend.delete({timeout: 15000});
                                     return;
                     } else {
+
+
+
+
+
                         for (let i = 0; i<limit; i++){
                             if(i===0) {
-                                searchEmbed.setTitle(`TOP ${limit} of ${args[0]}`)
+                                searchEmbed.setTitle(`TOP ${limit} of ${clanTag}`)
                                 .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} <CLAN-TAG> <TOP-10-5-3>\``)
                                 .setColor("#f82d2a")
                                 .setThumbnail(topURL)
@@ -133,14 +138,14 @@ module.exports = {
                             }
                             if(i===0){
                                 fetchingSend.delete({timeout: 10})
-                                message.channel.send(`${emoji[i]} **\`${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] - [KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]}] - Revive: ${result[i]["Revives"]}\`**`);
+                                message.channel.send(`${emoji[i]} **\`${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] - [KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]}] - Revive: ${result[i]["Revives"]}\`**`) // needs another way :( ).then(msg => { msg.delete({timeout: SETTINGS.deleteClanStatsEmbedTimeout})});
                             } else {
-                                message.channel.send(`${emoji[i]} **\`${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] - [KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]}] - Revive: ${result[i]["Revives"]}\`**`);
+                                message.channel.send(`${emoji[i]} **\`${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] - [KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]}] - Revive: ${result[i]["Revives"]}\`**`) // needs another way :( ).then(msg => { msg.delete({timeout: SETTINGS.deleteClanStatsEmbedTimeout})});
                             }
 
                             if(i===limit-1){
                                 let endList = new MessageEmbed()
-                                    .setTitle(`ALL DATA IS FETCHED FOR ${args[0]}`);
+                                    .setTitle(`ALL DATA IS FETCHED FOR ${clanTag}`);
                                 message.channel.send(endList).then(msg => { msg.delete({timeout: 9000})});
                             }
                         }
