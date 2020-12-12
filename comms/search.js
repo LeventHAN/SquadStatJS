@@ -27,16 +27,18 @@ module.exports = {
                     .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio')
                     .setThumbnail("https://i.imgur.com/fqymYyZ.png");
                 wrongSyntaxEmbed.setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio')
-                wrongSyntaxEmbed.addField(`Example`,`\`!search 76561198255784011\``);
+                wrongSyntaxEmbed.addField(`Example`,`\`${SETTINGS.prefix}${SETTINGS.searchTag} 76561198255784011\``);
                 wrongSyntaxEmbed.setTimestamp();
                 wrongSyntaxEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                 message.channel.send(wrongSyntaxEmbed)
                 .then(msg => { msg.delete({timeout: 10000})})
                 .then(message.delete({timeout: 10000}))
+                .then(fetchingSend.delete({timeout: 10}))
                 .catch(console.error);
         }
             if (!args.length) {
                 wrongSyntax()
+                return;
             }
 
             const steamIDpatter = /^[0-9]{17}$/;
@@ -44,7 +46,8 @@ module.exports = {
             const uidValid = steamIDpatter.test(args[0]);
 
             if (!uidValid) {
-                wrongSyntax()
+                wrongSyntax();
+                return;
             }
 
             var mysql = require('mysql');
@@ -72,6 +75,7 @@ module.exports = {
                         message.channel.send(dbConnectionEmbed)
                         .then(msg => { msg.delete({timeout: 10000})})
                         .then(message.delete({timeout: 10000}))
+                        .then(fetchingSend.delete({timeout: 10}))
                         .catch(console.error);
                         if (error) throw error;
                         return;
@@ -90,6 +94,7 @@ module.exports = {
                         return message.channel.send(searchEmbed)
                         .then(msg => { msg.delete({timeout: 5000})})
                         .then(message.delete({timeout: 5000}))
+                        .then(fetchingSend.delete({timeout: 10}))
                         .catch(console.error);
 
                     } else {
