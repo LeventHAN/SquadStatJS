@@ -12,6 +12,8 @@ module.exports = {
     cooldown: 20,
     aliases: ["s"],
     description: "Search a player up",
+    example: `76561198110941835`, // example UID for the help command's example
+    showOnHelp: SETTINGS.showOnHelpSearchCommand,
     async execute(message, args) {
         let fetchingData = new MessageEmbed()
                 .setTitle("We are fetching the data, please wait... ")

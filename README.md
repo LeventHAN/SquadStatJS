@@ -65,8 +65,15 @@ deletePlayerStatsEmbedTimeout="29000"
 showActiveServerEmbed=true
 deleteActiveServerEmbed=true
 deleteActiveServerEmbedTimeout="29000"
-# not ready yet \ deleteClanStatsEmbed=false
-# not ready yet \ deleteClanStatsEmbedTimeout="29000"
+deleteClanStatsEmbed=true
+deleteClanStatsEmbedTimeout="29000"
+
+# Show Commands on Help embed
+showOnHelpSearchCommand=true
+showOnHelpSearchClanCommand=true
+showOnHelpHelpCommand=false
+showOnHelpCreditsCommand=false
+showOnHelpUptimeCommand=false
 
 # SquadJS Database Settings
 host="127.0.0.1"
@@ -94,6 +101,11 @@ author="©️ Anatolia Squad Community"
  * `deletePlayerStatsEmbedTimeout` - The delete time in milliseconds for the Player Stats Embed! Default: `29000` = 29seconds
  * `deleteClanStatsEmbed` - Toggles the delete function of the bot on/off for the Clan Stats Embed (`true`: on | `false`: off)
  * `deleteClanStatsEmbedTimeout` - The delete time in milliseconds for the Clan Stats Embed! Default: `29000` = 29seconds
+ * `showOnHelpSearchCommand` - Will show or hide the `search player stats` command from the HELP command.
+ * `showOnHelpSearchClanCommand` - Will show or hide the `search TOP clan player stats` command from the HELP command.
+ * `showOnHelpHelpCommand` - Will show or hide the `help` command from the HELP command.
+ * `showOnHelpCreditsCommand` - Will show or hide the `credits` command from the HELP command.
+ * `showOnHelpUptimeCommand` - Will show or hide the `uptime` command from the HELP command.
  * `showActiveServerEmbed` - Toggles the steam embed status message for players. (`true`: embed message is showing active server player is playing | `false`: does not show the active playing server embed) If this is `false` than `deleteActiveServerEmbed` and `deleteActiveServerEmbedTimeout` will be irrelevant.
  * `deleteActiveServerEmbed` - Toggles the delete function of the bot on/off for the active playing @ server embed (`true`: on | `false`: off)
  * `deleteActiveServerEmbedTimeout` - The delete time in milliseconds for the Active Server Embed! Default: `29000` = 29seconds
@@ -129,9 +141,9 @@ The following is a list of commands built into SquadJS, you can click their titl
       </code></pre>
       <h3>Example Image</h3>
        <div align="center">
-       <img src="img/examples/example_4.jpg" alt="Example !sclan" width="250"/><br>
-       <img src="img/examples/example_5.jpg" alt="Example !sclan" width="250"/><br>
-       <img src="img/examples/example_6.jpg" alt="Example !sclan" width="250"/><br>
+       <img src="img/examples/example_4_updated.jpg" alt="Example !sclan" width="450"/><br>
+       <img src="img/examples/example_5_updated.jpg" alt="Example !sclan" width="450"/><br>
+       <img src="img/examples/example_6_updated.jpg" alt="Example !sclan" width="450"/><br>
        </div>
 </details>
 <details>

@@ -1,8 +1,12 @@
+require('dotenv').config();
+const SETTINGS = process.env;
+
 module.exports = {
     name: "uptime",
     aliases: ["u"],
     cooldown: 60,
     description: "Shows bots ping and uptime",
+    showOnHelp: SETTINGS.showOnHelpUptimeCommand,
     execute(message) {
         let seconds = Math.floor(message.client.uptime / 1000);
         let minutes = Math.floor(seconds / 60);

@@ -12,6 +12,7 @@ module.exports = {
     aliases: ["c"],
     cooldown: 60,
     description: "Shows bot's credits.",
+    showOnHelp: SETTINGS.showOnHelpCreditsCommand,
     execute(message) {
             let creditsEmbed = new MessageEmbed()
                 .setTitle(`SquadStatJS Credits`)
