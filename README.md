@@ -24,6 +24,7 @@ SquadStatJS is a Discord bot that shows the SQUAD players statistics using the d
 You can use this to entertain the players in your community. It will simulate the players in your server to play better and longer.
 
 ### Prerequisites
+ * MySQL sql_mode should NOT have the following mode: `ONLY-FULL-GROUP-BY`
  * Git
  * [Node.js](https://nodejs.org/en/) (Current) - [Download](https://nodejs.org/en/)
  * [SquadJS](https://github.com/Thomas-Smyth/SquadJS)
