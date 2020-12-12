@@ -3,6 +3,7 @@ module.exports = {
     aliases: ["cnl"], // the short aliase for the command !cnl === !commandNameLong
     cooldown: 60, // delete for none
     description: "An example command", // this text shows up on !help command as description
+    showOnHelp: true/false, // true OR false will show it or hide in on the command output of HELP
     execute(message) {
 
         // here comes your code...
