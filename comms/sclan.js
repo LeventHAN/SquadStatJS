@@ -6,7 +6,9 @@ module.exports = {
     name: SETTINGS.searchClanTag,
     cooldown: 60,
     aliases: ["sc"],
-    description: "Show a clan's top players up",
+    description: `Show a clan's top players up.`,
+    example: `'[8mm]' TOP5`,
+    showOnHelp: SETTINGS.showOnHelpSearchClanCommand,
     async execute(message, args) {
         function wrongSyntax() {
             let wrongSyntaxEmbed = new MessageEmbed()
@@ -94,6 +96,7 @@ module.exports = {
                         .then(message.delete({timeout: 10000}))
                         .then(fetchingData.delete({timeout: 1}))
                         .catch(console.error);
+                        fetchingSend.delete({timeout: 1});
                         if (error) throw error;
                         return;
                     }
@@ -115,38 +118,28 @@ module.exports = {
                                     message.channel.send(searchEmbed)
                                     .then(msg => { msg.delete({timeout: 15000})})
                                     .then(message.delete({timeout: 10000}));
-                                    fetchingSend.delete({timeout: 15000});
+                                    fetchingSend.delete({timeout: 1});
                                     return;
                     } else {
-
-
-
-
-
-                        for (let i = 0; i<limit; i++){
-                            if(i===0) {
-                                searchEmbed.setTitle(`TOP ${limit} of ${clanTag}`)
+                        searchEmbed.setTitle(`TOP ${limit} of ${clanTag}`)
                                 .setDescription(`Command usage: \`${SETTINGS.prefix}${SETTINGS.searchClanTag} "<CLAN-TAG>" <TOP-10-5-3>\``)
                                 .setColor("#f82d2a")
                                 .setThumbnail(topURL)
                                 .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
-                                searchEmbed.setTimestamp();
-                                searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
-                                message.channel.send(searchEmbed)
-                                .then(message.delete({timeout: 5000}));
-                            }
-                            if(i===0){
-                                fetchingSend.delete({timeout: 10})
-                                message.channel.send(`${emoji[i]} **\`${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] - [KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]}] - Revive: ${result[i]["Revives"]}\`**`) // needs another way :( ).then(msg => { msg.delete({timeout: SETTINGS.deleteClanStatsEmbedTimeout})});
-                            } else {
-                                message.channel.send(`${emoji[i]} **\`${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] - [KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]}] - Revive: ${result[i]["Revives"]}\`**`) // needs another way :( ).then(msg => { msg.delete({timeout: SETTINGS.deleteClanStatsEmbedTimeout})});
-                            }
-
-                            if(i===limit-1){
-                                let endList = new MessageEmbed()
-                                    .setTitle(`ALL DATA IS FETCHED FOR ${clanTag}`);
-                                message.channel.send(endList).then(msg => { msg.delete({timeout: 9000})});
-                            }
+                        for (let i = 0; i<limit; i++){
+                            searchEmbed.addField(`${emoji[i]} **${result[i]["Name"]} - K/D: [${result[i]["K/D"]}%] **`, `\`\`\`KILL: ${result[i]["Kills"]} - WOUND: ${result[i]["Wounds"]} - DEATH: ${result[i]["Deaths"]} - Revive: ${result[i]["Revives"]}\`\`\``,false);
+                        }
+                        searchEmbed.setTimestamp();
+                        searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
+                        if(SETTINGS.deleteClanStatsEmbed === "true"){
+                            message.channel.send(searchEmbed)
+                            .then(message.delete({timeout: 5000}))
+                            .then(msg => { msg.delete({timeout: SETTINGS.deleteClanStatsEmbedTimeout})});
+                            fetchingSend.delete({timeout: 1});
+                        } else {
+                            message.channel.send(searchEmbed)
+                            .then(message.delete({timeout: 5000}));
+                            fetchingSend.delete({timeout: 1});
                         }
                     }
                 });
