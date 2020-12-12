@@ -41,7 +41,7 @@ client.on("message", async (message) => {
     if ((SETTINGS.channelRestricted === "true") && (message.channel.id !== SETTINGS.statChannel)) {
         let wrongChannelEmbed = new MessageEmbed()
             .setTitle(`Ooops! Wrong Channel`)
-            .setDescription(`**You can only search a player up at <#${SETTINGS.statChannel}>.**`)
+            .setDescription(`**You can only use commands at <#${SETTINGS.statChannel}>.**`)
             .setColor("#ff0300")
             .setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio')
             .setThumbnail("https://i.imgur.com/fqymYyZ.png");
