@@ -1,6 +1,6 @@
 require('dotenv').config();
 const SETTINGS = process.env;
-const {Client, Collection, MessageEmbed} = require('discord.js')
+const {Client, Collection, MessageEmbed, WebhookClient} = require('discord.js')
 const { join } = require("path");
 const { readdirSync } = require("fs");
 
@@ -12,6 +12,31 @@ client.commands = new Collection();
 client.prefix = SETTINGS.prefix;
 const cooldowns = new Collection();
 const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+client.once('ready', async () => {
+    // This will help me track the usage of this bot you can disable it on your settings (.env)
+    // It will only send your bots name to my discord channel informing me someone is using my bot. No IP-TOKEN-OWNER-KEY track. Code is below just read it :)
+    if (SETTINGS.disableAnalyticsTrack === "false"){
+        const webhookClient = new WebhookClient('787666514941313036', 'gFJNlijDcLHLOaIlifZkJboR9qvAPHRKh0glfWZghNHohK8FpxhxAJjdO1MVm5AGApo9');
+        try {
+            const embed = new MessageEmbed()
+            .setTitle('Someone just run your bot :thumbsup: ')
+            .setColor('#0099ff')
+            .setDescription(`<@152644814146371584> - ${client.user.username} is the name of the bot.`);
+
+            webhookClient.send({
+                username: 'SquadStatJS Tracker',
+                avatarURL: 'https://avatars2.githubusercontent.com/u/25463237?s=460&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4',
+                embeds: [embed],
+            })
+        } catch (error) {
+            console.error('Error trying to send analytics data: ', error);
+        }
+    } else {
+        return;
+    }
+})
+
 // starting the engine :)
 client.on("ready", () => {
     console.log(`${client.user.username} ready!`);
@@ -50,7 +75,7 @@ client.on("message", async (message) => {
         wrongChannelEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
         message.channel.send(wrongChannelEmbed)
         .then(msg => { msg.delete({timeout: 5000})})
-        .then(message.delete({timeout: 1000}))
+        .then(SETTINGS.deleteUsersCommandOnWrongChannel==="true"?message.delete({timeout: 1000}):"")
         .catch(console.error);
         return;
     }
@@ -79,7 +104,7 @@ client.on("message", async (message) => {
             wrongSyntaxEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
             message.channel.send(wrongSyntaxEmbed)
             .then(msg => { msg.delete({timeout: 5000})})
-            .then(message.delete({timeout: 5000}))
+            .then(SETTINGS.deleteUsersCommandOnTooFast==="true"?message.delete({timeout: 5000}):"")
             .catch(console.error);
             return;
         }
