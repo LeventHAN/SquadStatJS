@@ -69,6 +69,13 @@ deleteActiveServerEmbedTimeout="29000"
 deleteClanStatsEmbed=true
 deleteClanStatsEmbedTimeout="29000"
 
+# User's Send Message Settings
+deleteUsersCommandOnError=true
+deleteUsersCommandOnSuccess=true
+deleteUsersCommandOnNotFound=true
+deleteUsersCommandOnTooFast=true
+deleteUsersCommandOnWrongChannel=true
+
 # Show Commands on Help embed
 showOnHelpSearchCommand=true
 showOnHelpSearchClanCommand=true
@@ -87,6 +94,11 @@ serverID="1,2,3"
 # Visual Settings
 footerImg="https://cdn.discordapp.com/icons/676475499538808842/a_b40c3b2dc58d06d3d1a5d34510205cd4.gif"
 author="©️ Anatolia Squad Community"
+
+# Analytics For Developer - Sends the developer a message that you run the bot
+# Code is open to read if you feel unsafe check the code :P
+# No IP/password/credentials/token/etc track!
+disableAnalyticsTrack=false
 ```
  * `prefix` - The symbol/letter that your bot will use, default is `!`.
  * `searchTag` - Changes the tag name that the bots responds for searching stats of the players
@@ -110,6 +122,16 @@ author="©️ Anatolia Squad Community"
  * `showActiveServerEmbed` - Toggles the steam embed status message for players. (`true`: embed message is showing active server player is playing | `false`: does not show the active playing server embed) If this is `false` than `deleteActiveServerEmbed` and `deleteActiveServerEmbedTimeout` will be irrelevant.
  * `deleteActiveServerEmbed` - Toggles the delete function of the bot on/off for the active playing @ server embed (`true`: on | `false`: off)
  * `deleteActiveServerEmbedTimeout` - The delete time in milliseconds for the Active Server Embed! Default: `29000` = 29seconds
+ * `deleteUsersCommandOnError` - `true`(default) - `false` is vice-versa of `true`
+      * `true` This will delete the user's message if: `Syntax is wrong`, `Database connection error`
+ * `deleteUsersCommandOnSuccess` - `true`(default) - `false` is vice-versa of `true`
+      * `true` This will delete the user's message if:  `User EXIST and is SUCCESFULLY SHOWN`, `Clans TOP list EXIST and is SUCCESFULLY SHOWN`
+ * `deleteUsersCommandOnNotFound` - `true`(default) - `false` is vice-versa of `true` 
+      * `true` This will delete the user's message if:  `User not Found On DB`
+ * `deleteUsersCommandOnTooFast` - `true`(default) - `false` is vice-versa of `true`
+      * `true` This will delete the user's message if:  `User writes a command too fast / that is in cooldown`
+ * `deleteUsersCommandOnWrongChannel` - `true`(default) - `false` is vice-versa of `true`
+      * `true` This will delete the user's message if: `User writes a command on wrong channel`
  * `host` - The database IP that SquadJS is using.
  * `user` - The username for that DB.
  * `password` - The password for that DB.
@@ -117,7 +139,8 @@ author="©️ Anatolia Squad Community"
  * `serverID` - The server ID that you would want to filter (most of the time it should be just "1" if you have multiple servers than you can write "1,2,etc..").
  * `footerImg` - The little logo/image on the footer of each embed.
  * `author` - The text next to `footerImg`
- 
+ * `disableAnalyticsTrack` - `false`(default) - Analytics For Developer - Sends the developer a message that you run the bot. Code is open to read if you feel unsafe check the code :P - No IP/password/credentials/token/etc track!
+
 
 ## Commands and Examples
 The following is a list of commands built into SquadJS, you can click their title for more information:

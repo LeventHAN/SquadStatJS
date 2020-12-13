@@ -24,8 +24,8 @@ module.exports = {
                 wrongSyntaxEmbed.setTimestamp();
                 wrongSyntaxEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                 message.channel.send(wrongSyntaxEmbed)
-                .then(msg => { msg.delete({timeout: 15000})})
-                .then(message.delete({timeout: 15000}))
+                .then(msg => { msg.delete({timeout: 15000}) })
+                .then(SETTINGS.deleteUsersCommandOnError === "true" ? message.delete({timeout: 15000}) : "")
                 .catch(console.error);
         }
             if (!args.length) {
@@ -93,7 +93,7 @@ module.exports = {
                             dbConnectionEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                         message.channel.send(dbConnectionEmbed)
                         .then(msg => { msg.delete({timeout: 10000})})
-                        .then(message.delete({timeout: 10000}))
+                        .then(SETTINGS.deleteUsersCommandOnError === "true" ? message.delete({timeout: 10000}) : "")
                         .then(fetchingData.delete({timeout: 1}))
                         .catch(console.error);
                         fetchingSend.delete({timeout: 1});
@@ -117,7 +117,7 @@ module.exports = {
                                     searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                                     message.channel.send(searchEmbed)
                                     .then(msg => { msg.delete({timeout: 15000})})
-                                    .then(message.delete({timeout: 10000}));
+                                    .then(SETTINGS.deleteUsersCommandOnError === "true" ? message.delete({timeout: 10000}) : "");
                                     fetchingSend.delete({timeout: 1});
                                     return;
                     } else {
@@ -133,12 +133,12 @@ module.exports = {
                         searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                         if(SETTINGS.deleteClanStatsEmbed === "true"){
                             message.channel.send(searchEmbed)
-                            .then(message.delete({timeout: 5000}))
+                            .then(SETTINGS.deleteUsersCommandOnSuccess === "true" ? message.delete({timeout: 5000}) : "")
                             .then(msg => { msg.delete({timeout: SETTINGS.deleteClanStatsEmbedTimeout})});
                             fetchingSend.delete({timeout: 1});
                         } else {
                             message.channel.send(searchEmbed)
-                            .then(message.delete({timeout: 5000}));
+                            .then(SETTINGS.deleteUsersCommandOnSuccess === "true" ? message.delete({timeout: 5000}) : "");
                             fetchingSend.delete({timeout: 1});
                         }
                     }

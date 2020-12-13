@@ -32,7 +32,7 @@ module.exports = {
                 wrongSyntaxEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                 message.channel.send(wrongSyntaxEmbed)
                 .then(msg => { msg.delete({timeout: 10000})})
-                .then(message.delete({timeout: 10000}))
+                .then(SETTINGS.deleteUsersCommandOnError==="true"?message.delete({timeout: 10000}):"")
                 .then(fetchingSend.delete({timeout: 10}))
                 .catch(console.error);
         }
@@ -74,7 +74,7 @@ module.exports = {
                             dbConnectionEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                         message.channel.send(dbConnectionEmbed)
                         .then(msg => { msg.delete({timeout: 10000})})
-                        .then(message.delete({timeout: 10000}))
+                        .then(SETTINGS.deleteUsersCommandOnError==="true"?message.delete({timeout: 10000}):"")
                         .then(fetchingSend.delete({timeout: 10}))
                         .catch(console.error);
                         if (error) throw error;
@@ -93,7 +93,7 @@ module.exports = {
                         searchEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                         return message.channel.send(searchEmbed)
                         .then(msg => { msg.delete({timeout: 5000})})
-                        .then(message.delete({timeout: 5000}))
+                        .then(SETTINGS.deleteUsersCommandOnNotFound==="true"?message.delete({timeout: 5000}):"")
                         .then(fetchingSend.delete({timeout: 10}))
                         .catch(console.error);
 
@@ -218,12 +218,12 @@ module.exports = {
                                 if(SETTINGS.deletePlayerStatsEmbed === "true"){
                                     message.channel.send(searchEmbed)
                                     .then(msg => { msg.delete({timeout: SETTINGS.deletePlayerStatsEmbedTimeout})})
-                                    .then(message.delete({timeout: 29000}))
+                                    .then(SETTINGS.deleteUsersCommandOnSuccess==="true"?message.delete({timeout: 29000}):"")
                                     .then(fetchingSend.delete({timeout: 10}))
                                     .catch(console.error);
                                 } else {
                                     message.channel.send(searchEmbed)
-                                    .then(message.delete({timeout: 29000}))
+                                    .then(SETTINGS.deleteUsersCommandOnSuccess==="true"?message.delete({timeout: 29000}):"")
                                     .then(fetchingSend.delete({timeout: 10}))
                                     .catch(console.error);
                                 }
@@ -272,7 +272,6 @@ module.exports = {
                                             serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                                             message.channel.send(serverEmbed)
                                             .then(msg => { msg.delete({timeout: 15000})})
-                                            .then(message.delete({timeout: 5000}))
                                             .catch(console.error);
                                         });
                                     } else {
