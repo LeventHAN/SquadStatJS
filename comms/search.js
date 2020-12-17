@@ -61,7 +61,7 @@ module.exports = {
 
             con.connect(error => {
                 if (error) throw error;
-                con.query("SELECT m.attacker AS 'Steam_ID', `Name`, `Wounds`,`Kills`,`Deaths`,`Kills`/`Deaths` AS `K/D`,`Revives`,m.id AS 'ID' FROM `DBLog_Wounds` m LEFT JOIN ( SELECT attacker, COUNT(*) AS `Wounds` FROM `DBLog_Wounds` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY attacker ORDER BY time ASC) w ON w.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `Kills` FROM `DBLog_Deaths` WHERE server IN ("+SETTINGS.serverID+")  GROUP BY attacker) k ON k.attacker = m.attacker LEFT JOIN ( SELECT victim, COUNT(*) AS `Deaths` FROM `DBLog_Deaths` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY victim) d ON d.victim = m.attacker LEFT JOIN (SELECT steamID, lastName AS `Name` FROM `DBLog_SteamUsers`) s ON s.steamID = m.attacker LEFT JOIN ( SELECT reviver, COUNT(*) AS `Revives` FROM `DBLog_Revives` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY reviver ) r ON r.reviver = m.attacker WHERE steamID = '" + a + "' AND server IN (" + SETTINGS.serverID + ")  GROUP BY m.attacker HAVING `K/D` IS NOT NULL ORDER BY `K/D` DESC, time DESC", function (error, result, fields) {
+                con.query("SELECT m.attacker AS 'Steam_ID', `Name`, `Wounds`,`Kills`,`Deaths`,`Kills`/`Deaths` AS `K/D`,`Revives`,m.id AS 'ID', `TeamKills`, `Favorite Gun`, `Favorite Role` FROM `DBLog_Wounds` m LEFT JOIN ( SELECT attacker, COUNT(*) AS `Wounds`, weapon AS `Favorite Gun` FROM `DBLog_Wounds` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY attacker ORDER BY time ASC) w ON w.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `TeamKills` FROM `PlayerDied` WHERE server = 1 AND teamkill = 1 GROUP BY attacker) tk ON tk.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `Kills`, weapon AS `Favorite Role` FROM `DBLog_Deaths` WHERE server IN ("+SETTINGS.serverID+")  GROUP BY attacker) k ON k.attacker = m.attacker LEFT JOIN ( SELECT victim, COUNT(*) AS `Deaths` FROM `DBLog_Deaths` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY victim) d ON d.victim = m.attacker LEFT JOIN (SELECT steamID, lastName AS `Name` FROM `DBLog_SteamUsers`) s ON s.steamID = m.attacker LEFT JOIN ( SELECT reviver, COUNT(*) AS `Revives` FROM `DBLog_Revives` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY reviver ) r ON r.reviver = m.attacker WHERE steamID = '" + a + "' AND server IN (" + SETTINGS.serverID + ")  GROUP BY m.attacker HAVING `K/D` IS NOT NULL ORDER BY `K/D` DESC, time DESC", function (error, result, fields) {
                     if (error) {
                         let dbConnectionEmbed = new MessageEmbed()
                             .setTitle(`Ooops! Database error :( `)
@@ -154,27 +154,26 @@ module.exports = {
                             );
 
                             searchEmbed.addField(
+                                `**Amount of TeamKills**`,
+                                `\`\`\`${result[0]["TeamKills"]}\`\`\``,
+                                true
+                            );
+
+                            searchEmbed.addField(
                                 `\u200B`, `\u200B`
                             );
 
-                            con.query("SELECT attacker, weapon, COUNT(weapon) FROM `DBLog_Deaths` WHERE server IN ("+SETTINGS.serverID+") AND attacker = '" + a + "' GROUP BY weapon  ORDER BY COUNT(weapon) DESC;", function (error1, result1, fields1) {
-                                if (error1) throw error1;
+                            searchEmbed.addField(
+                                `**Favorite Role**`,
+                                `\`\`\`${result[0]["Favorite Role"]}\`\`\``,
+                                false
+                            );
 
-                                searchEmbed.addField(
-                                    `**Favorite Role**`,
-                                    `\`\`\`${result1[0]["weapon"]}\`\`\``,
-                                    false
-                                );
-                            });
-
-                            con.query("SELECT attacker, weapon, COUNT(weapon) FROM `DBLog_Wounds` WHERE server IN ("+SETTINGS.serverID+") AND attacker = '" + a + "' GROUP BY weapon  ORDER BY COUNT(weapon) DESC;", function (error2, result2, fields2) {
-                                if (error2) throw error2;
-
-                                searchEmbed.addField(
-                                    `**Favorite Gun**`,
-                                    `\`\`\`${result2[0]["weapon"]}\`\`\``,
-                                    false
-                                );
+                            searchEmbed.addField(
+                                `**Favorite Gun**`,
+                                `\`\`\`${result[0]["Favorite Gun"]}\`\`\``,
+                                false
+                            );
 
                                 // TODO: Battlemetrics is down. Use Superagent for that if steam fails to do what I want.
                                 /*
@@ -228,55 +227,33 @@ module.exports = {
                                     .catch(console.error);
                                 }
 
-                                if(SETTINGS.showActiveServerEmbed === "true") {
-                                    let serverEmbed = new MessageEmbed()
-                                        .setTitle(`Server activity - ${summary["nickname"]}`)
-                                        .setDescription(`The following is fetched from Steam servers.`)
-                                        .setColor("#3c54fd");
-                                    if (summary["gameServerIP"]) {
-                                        let serverIPort = summary["gameServerIP"].split(":");
-                                        Gamedig.query({
-                                            type: summary["gameExtraInfo"].toLowerCase(),
-                                            host: serverIPort[0]
-                                        }).then((state) => {
-                                            if (state["raw"]["folder"] === "squad") {
-                                                if (state["map"]) {
-                                                    let map = state["map"];
-                                                    map = map.replace(/ /g, "_");
-                                                    map = map.replace(/'/g, "");
-                                                    let layerImgURL = "https://squadmaps.com/img/maps/thumbnails/" + map + ".jpg";
+                            if(SETTINGS.showActiveServerEmbed === "true") {
+                                let serverEmbed = new MessageEmbed()
+                                    .setTitle(`Server activity - ${summary["nickname"]}`)
+                                    .setDescription(`The following is fetched from Steam servers.`)
+                                    .setColor("#3c54fd");
+                                if (summary["gameServerIP"]) {
+                                    let serverIPort = summary["gameServerIP"].split(":");
+                                    Gamedig.query({
+                                        type: summary["gameExtraInfo"].toLowerCase(),
+                                        host: serverIPort[0]
+                                    }).then((state) => {
+                                        if (state["raw"]["folder"] === "squad") {
+                                            if (state["map"]) {
+                                                let map = state["map"];
+                                                map = map.replace(/ /g, "_");
+                                                map = map.replace(/'/g, "");
+                                                let layerImgURL = "https://squadmaps.com/img/maps/thumbnails/" + map + ".jpg";
 
-                                                    serverEmbed.setThumbnail(layerImgURL);
-                                                }
+                                                serverEmbed.setThumbnail(layerImgURL);
                                             }
-                                            serverEmbed.setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
+                                        }
+                                        serverEmbed.setAuthor('SquadStatJS by LeventHAN x 11TStudio', 'https://avatars2.githubusercontent.com/u/25463237?s=400&u=eccc0ee1cd33352f75338889e791a04d1909bcce&v=4', 'https://github.com/11TStudio');
 
-                                            serverEmbed.addFields(
-                                                { name: `:file_cabinet: **Server** & Ping **(~${state["ping"]})**`, value: `**${state["name"]}**` },
-                                                { name: `:busts_in_silhouette:  **Players**`, value: `**${state["raw"]["rules"]["PlayerCount_i"]}(${state["raw"]["rules"]["PublicQueue_i"]})/${state["maxplayers"]}**`, inline: true },
-                                                );
-                                            serverEmbed.setTimestamp();
-                                            serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
-                                            if(SETTINGS.deleteActiveServerEmbed === "true"){
-                                                message.channel.send(serverEmbed)
-                                                .then(msg => { msg.delete({timeout: SETTINGS.deleteActiveServerEmbedTimeout})})
-                                                .catch(console.error);
-                                            } else {
-                                                message.channel.send(serverEmbed)
-                                                .catch(console.error);
-                                            }
-                                            return;
-                                        }).catch((error) => {
-                                            console.log("There was an error: " + error);
-                                            serverEmbed.setTimestamp();
-                                            serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
-                                            message.channel.send(serverEmbed)
-                                            .then(msg => { msg.delete({timeout: 15000})})
-                                            .catch(console.error);
-                                        });
-                                    } else {
-                                        serverEmbed.setDescription(`**${summary["nickname"]} is not playing in a server.**`)
-                                        // TODO: Thumbnail with error img + Description that there was an error?
+                                        serverEmbed.addFields(
+                                            { name: `:file_cabinet: **Server** & Ping **(~${state["ping"]})**`, value: `**${state["name"]}**` },
+                                            { name: `:busts_in_silhouette:  **Players**`, value: `**${state["raw"]["rules"]["PlayerCount_i"]}(${state["raw"]["rules"]["PublicQueue_i"]})/${state["maxplayers"]}**`, inline: true },
+                                            );
                                         serverEmbed.setTimestamp();
                                         serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
                                         if(SETTINGS.deleteActiveServerEmbed === "true"){
@@ -287,13 +264,34 @@ module.exports = {
                                             message.channel.send(serverEmbed)
                                             .catch(console.error);
                                         }
+                                        return;
+                                    }).catch((error) => {
+                                        console.log("There was an error: " + error);
+                                        serverEmbed.setTimestamp();
+                                        serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
+                                        message.channel.send(serverEmbed)
+                                        .then(msg => { msg.delete({timeout: 15000})})
+                                        .catch(console.error);
+                                    });
+                                } else {
+                                    serverEmbed.setDescription(`**${summary["nickname"]} is not playing in a server.**`)
+                                    // TODO: Thumbnail with error img + Description that there was an error?
+                                    serverEmbed.setTimestamp();
+                                    serverEmbed.setFooter(SETTINGS.author, SETTINGS.footerImg);
+                                    if(SETTINGS.deleteActiveServerEmbed === "true"){
+                                        message.channel.send(serverEmbed)
+                                        .then(msg => { msg.delete({timeout: SETTINGS.deleteActiveServerEmbedTimeout})})
+                                        .catch(console.error);
+                                    } else {
+                                        message.channel.send(serverEmbed)
+                                        .catch(console.error);
                                     }
                                 }
-                                return;
-                            });
-                        });
-                    }
-                });
+                            }
+                        return;
+                    });
+                }
             });
+        });
     }
 };
