@@ -1,6 +1,6 @@
 {
   "name": "SquadStatJS",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Just a regular Statistics Tracker bot for your Disocrd server. (You must have SquadJS)",
   "main": "index.js",
   "scripts": {
