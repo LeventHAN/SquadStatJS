@@ -37,12 +37,9 @@ You can use this to entertain the players in your community. It will simulate th
 5. Star this repo if you liked!
 
 ### Configuring SquadStatJS
-SquadJS can be configured via a JSON configuration file which, by default, is located in the SquadJS and is named [config.json](https://github.com/Thomas-Smyth/SquadJS/blob/master/config.json).
+SquadStatJS can be configured via .env file which by default is called .env.example.
 
-The config file needs to be valid JSON syntax. If an error is thrown saying the config cannot be parsed then try putting the config into a JSON syntax checker (there's plenty to choose from that can be found via Google).
-
-#### Server
-The following section of the configuration contains information about your Squad server.
+The config file needs to be called .env at the end and a example can be found below:
 ```json
 # Main Settings
 prefix="!"
