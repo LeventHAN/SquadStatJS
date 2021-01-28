@@ -103,7 +103,7 @@ disableAnalyticsTrack=false
  * `game` - For now it is useless. Just don't touch it.
  * `serverIP` - The public IP of your Squad Game Server.
  * `DISCORD_BOT_TOKEN` - Obvius your bot token. You can find out how to get it here: [How to make a bot and get token](https://www.writebots.com/discord-bot-token/).
- * `steamtoken` - Your Steam Token, it will be used for the activity of the player (which server is he rightnow etc...) You can find it here: [SteamTokenAPI](https://steamcommunity.com/dev/apikey).
+ * `steamtoken` - Your Steam Token, it will be used for the activity of the player (which server is he rightnow etc...) You can find it here: [SteamTokenAPI](https://steamcommunity.com/dev/apikey). (For domain name you need to fill the IP address of your machine that is hosting the bot)
  * `battleMetricsToken` - It is not usefull for now. Don't touch it.
  * `channelRestricted` - You can choose between `true` and `false`. `false`: Players can use the commands everywehere in the servr. `true`: Will check the channelID (see `statChannel`) and respond only for that room. It will promt an error if you use it elsewhere.
  * `statChannel` - The room/channelID that players can use the bot (only works if `channelRestricted=true`).
