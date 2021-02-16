@@ -87,6 +87,7 @@ password="Your_Password"
 database="squadjs"
 # Write your serverID's all separated by ,(comma) like in the example below and the last one should not have any comma.
 serverID="1,2,3"
+ignoredMaps="'Jensen\'s Range'"
 
 # Visual Settings
 footerImg="https://cdn.discordapp.com/icons/676475499538808842/a_b40c3b2dc58d06d3d1a5d34510205cd4.gif"
@@ -134,6 +135,7 @@ disableAnalyticsTrack=false
  * `password` - The password for that DB.
  * `database` - The database name for SquadJS.
  * `serverID` - The server ID that you would want to filter (most of the time it should be just "1" if you have multiple servers than you can write "1,2,etc..").
+ * `ignoredMaps` - Put here the MAP names that you want to IGNORE in the stats. Default: "'Jensen\'s Range'"
  * `footerImg` - The little logo/image on the footer of each embed.
  * `author` - The text next to `footerImg`
  * `disableAnalyticsTrack` - `false`(default) - Analytics For Developer - Sends the developer a message that you run the bot. Code is open to read if you feel unsafe check the code :P - No IP/password/credentials/token/etc track!
