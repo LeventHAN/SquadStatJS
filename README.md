@@ -17,6 +17,10 @@
 <br><br>
 </div>
 
+
+## !!! This repo is out-of-date !!!
+Please use this instead: [SquadStatJS PRO](https://github.com/11TStudio/SquadStatsJSPRO)
+
 ## About
 SquadStatJS is a Discord bot that shows the SQUAD players statistics using the database that [SquadJS](https://github.com/Thomas-Smyth/SquadJS) is producing.
 
