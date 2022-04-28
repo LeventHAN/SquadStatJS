@@ -80,7 +80,19 @@ module.exports = {
 
             con.connect(error => {
                 if (error) throw error;
-                con.query("SELECT m.attacker AS 'Steam ID', `Name`, `Wounds`, `Kills`, `Deaths`, `Kills`/`Deaths` AS `K/D`, `Revives`, `Favorite Gun`, `Favorite Role`, `TeamKills` FROM `DBLog_Wounds` m LEFT JOIN (SELECT attacker, COUNT(*) AS `Wounds`, weapon AS `Favorite Gun` FROM `DBLog_Wounds` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY attacker ORDER BY time ASC) w ON w.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `TeamKills` FROM `DBLog_Deaths` WHERE server IN (" + SETTINGS.serverID + ") AND teamkill = 1 GROUP BY attacker) tk ON tk.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `Kills`, weapon AS `Favorite Role` FROM `DBLog_Deaths` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY attacker) k ON k.attacker = m.attacker LEFT JOIN (SELECT victim, COUNT(*) AS `Deaths` FROM `DBLog_Deaths` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY victim) d ON d.victim = m.attacker LEFT JOIN (SELECT steamID, lastName AS `Name` FROM `DBLog_SteamUsers`) s ON s.steamID = m.attacker LEFT JOIN (SELECT reviver, COUNT(*) AS `Revives` FROM `DBLog_Revives` WHERE server IN (" + SETTINGS.serverID + ") GROUP BY reviver) r ON r.reviver = m.attacker WHERE server IN (" + SETTINGS.serverID + ") AND `Name` LIKE ('%" + clanTag + "%') GROUP BY m.attacker HAVING `K/D` IS NOT NULL ORDER BY `K/D` DESC, time DESC LIMIT "+limit+";", function (error, result, fields) {
+                con.query("SELECT m.attacker AS 'Steam ID', `Name`, `Wounds`, `Kills`, `Deaths`, `Kills`/`Deaths` AS `K/D`, `Revives`, `Favorite Gun`, `Favorite Role`, `TeamKills` FROM `DBLog_Wounds` m LEFT JOIN (SELECT attacker, COUNT(*) AS `Wounds`, weapon AS `Favorite Gun` FROM `DBLog_Wounds` WHERE server IN (?) GROUP BY attacker ORDER BY time ASC) w ON w.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `TeamKills` FROM `DBLog_Deaths` WHERE server IN (?) AND teamkill = 1 GROUP BY attacker) tk ON tk.attacker = m.attacker LEFT JOIN (SELECT attacker, COUNT(*) AS `Kills`, weapon AS `Favorite Role` FROM `DBLog_Deaths` WHERE server IN () GROUP BY attacker) k ON k.attacker = m.attacker LEFT JOIN (SELECT victim, COUNT(*) AS `Deaths` FROM `DBLog_Deaths` WHERE server IN (?) GROUP BY victim) d ON d.victim = m.attacker LEFT JOIN (SELECT steamID, lastName AS `Name` FROM `DBLog_SteamUsers`) s ON s.steamID = m.attacker LEFT JOIN (SELECT reviver, COUNT(*) AS `Revives` FROM `DBLog_Revives` WHERE server IN () GROUP BY reviver) r ON r.reviver = m.attacker WHERE server IN () AND `Name` LIKE ('%?%') GROUP BY m.attacker HAVING `K/D` IS NOT NULL ORDER BY `K/D` DESC, time DESC LIMIT ?;", 
+                          [
+                            SETTINGS.serverID,
+                            SETTINGS.serverID,
+                            SETTINGS.serverID,
+                            SETTINGS.serverID,
+                            SETTINGS.serverID,
+                            SETTINGS.serverID,
+                            clanTag,
+                            limit
+                            ]
+                          ,
+                          function (error, result, fields) {
                     if (error) {
                         let dbConnectionEmbed = new MessageEmbed()
                             .setTitle(`Ooops! Database error :( `)
