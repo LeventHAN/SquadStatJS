@@ -18,7 +18,7 @@
 </div>
 
 
-## !!! This repo is out-of-date !!!
+# !!! This repo is out-of-date || DO NOT USE IT !!!
 Please use this instead: [SquadStatJS PRO](https://github.com/11TStudio/SquadStatsJSPRO)
 
 ## About
